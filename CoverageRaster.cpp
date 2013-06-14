@@ -34,6 +34,9 @@ static void PutPixel (int x, int y, int width, int height, unsigned char* image)
 	image[y * width + x] += 8;
 }
 
+
+// Note: coordinates should be in [-16384,16383] range, otherwise risk overflows
+// and incorrect raster.
 static void RasterizeTri(
 						 const Point2D& v0, const Point2D& v1, const Point2D& v2,
 						 int width, int height, unsigned char* image
@@ -50,24 +53,44 @@ static void RasterizeTri(
 	minY = std::max(minY, 0);
 	maxX = std::min(maxX, width - 1);
 	maxY = std::min(maxY, height - 1);
+	
+	// Triangle setup
+    int A01 = v0.y - v1.y, B01 = v1.x - v0.x;
+    int A12 = v1.y - v2.y, B12 = v2.x - v1.x;
+    int A20 = v2.y - v0.y, B20 = v0.x - v2.x;
+	
+    // Barycentric coordinates at minX/minY corner
+    Point2D p = { minX, minY };
+    int w0_row = orient2d(v1, v2, p);
+    int w1_row = orient2d(v2, v0, p);
+    int w2_row = orient2d(v0, v1, p);
 
 	// Rasterize
-	Point2D p;
 	for (p.y = minY; p.y <= maxY; p.y++)
 	{
+		// Barycentric coordinates at start of row
+        int w0 = w0_row;
+        int w1 = w1_row;
+        int w2 = w2_row;
+		
 		for (p.x = minX; p.x <= maxX; p.x++)
 		{
-			// Determine barycentric coordinates
-			int w0 = orient2d(v1, v2, p);
-			int w1 = orient2d(v2, v0, p);
-			int w2 = orient2d(v0, v1, p);
-
 			// If p is on or inside all edges, render pixel.
 			if (w0 >= 0 && w1 >= 0 && w2 >= 0)
 			{
 				PutPixel (p.x, p.y, width, height, image);
 			}
+			
+			// One step to the right
+            w0 += A12;
+            w1 += A20;
+            w2 += A01;
 		}
+		
+		// One row step
+        w0_row += B12;
+        w1_row += B20;
+        w2_row += B01;
 	}
 }
 
