@@ -76,7 +76,7 @@ static void RasterizeTri(
 		for (p.x = minX; p.x <= maxX; p.x++)
 		{
 			// If p is on or inside all edges, render pixel.
-			if (w0 >= 0 && w1 >= 0 && w2 >= 0)
+			if ((w0 | w1 | w2) >= 0)
 			{
 				PutPixel (p.x, p.y, width, height, image);
 			}
