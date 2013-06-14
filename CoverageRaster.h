@@ -6,5 +6,5 @@ void RasterizeCoverage(
 					   const float* vertices,
 					   int width,
 					   int height,
-					   char* image
+					   unsigned char* image
 					   );
