@@ -28,6 +28,7 @@
 		2B9F311C176B82DD008D4D48 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		2B9F3125176B8371008D4D48 /* CoverageRaster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoverageRaster.cpp; sourceTree = "<group>"; };
 		2B9F3126176B8371008D4D48 /* CoverageRaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoverageRaster.h; sourceTree = "<group>"; };
+		2B9F3128176B8880008D4D48 /* stb_image_write.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image_write.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +48,7 @@
 				2B9F3125176B8371008D4D48 /* CoverageRaster.cpp */,
 				2B9F3126176B8371008D4D48 /* CoverageRaster.h */,
 				2B9F311C176B82DD008D4D48 /* main.cpp */,
+				2B9F3128176B8880008D4D48 /* stb_image_write.h */,
 				2B9F311A176B82DD008D4D48 /* Products */,
 			);
 			sourceTree = "<group>";
