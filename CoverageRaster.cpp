@@ -30,7 +30,8 @@ static inline T max3(T a, T b, T c)
 
 static void PutPixel (int x, int y, int width, int height, unsigned char* image)
 {
-	image[y * width + x] = 0xFF;
+	//image[y * width + x] = 0xFF;
+	image[y * width + x] += 53;
 }
 
 static void RasterizeTri(
@@ -90,6 +91,11 @@ void RasterizeCoverage(
 		v1.y = vertices[idx1+1] * height;
 		v2.x = vertices[idx2] * width;
 		v2.y = vertices[idx2+1] * height;
+		
+		if (orient2d(v0, v1, v2) < 0)
+		{
+			std::swap (v1, v2);
+		}
 		
 		RasterizeTri(v0, v1, v2, width, height, image);
 	}
