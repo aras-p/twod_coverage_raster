@@ -55,23 +55,23 @@ static void RasterizeTri(
 	maxY = std::min(maxY, height - 1);
 	
 	// Triangle setup
-    int A01 = v0.y - v1.y, B01 = v1.x - v0.x;
-    int A12 = v1.y - v2.y, B12 = v2.x - v1.x;
-    int A20 = v2.y - v0.y, B20 = v0.x - v2.x;
-	
-    // Barycentric coordinates at minX/minY corner
-    Point2D p = { minX, minY };
-    int w0_row = orient2d(v1, v2, p);
-    int w1_row = orient2d(v2, v0, p);
-    int w2_row = orient2d(v0, v1, p);
+	int A01 = v0.y - v1.y, B01 = v1.x - v0.x;
+	int A12 = v1.y - v2.y, B12 = v2.x - v1.x;
+	int A20 = v2.y - v0.y, B20 = v0.x - v2.x;
+
+	// Barycentric coordinates at minX/minY corner
+	Point2D p = { minX, minY };
+	int w0_row = orient2d(v1, v2, p);
+	int w1_row = orient2d(v2, v0, p);
+	int w2_row = orient2d(v0, v1, p);
 
 	// Rasterize
 	for (p.y = minY; p.y <= maxY; p.y++)
 	{
 		// Barycentric coordinates at start of row
-        int w0 = w0_row;
-        int w1 = w1_row;
-        int w2 = w2_row;
+		int w0 = w0_row;
+		int w1 = w1_row;
+		int w2 = w2_row;
 		
 		for (p.x = minX; p.x <= maxX; p.x++)
 		{
@@ -82,15 +82,15 @@ static void RasterizeTri(
 			}
 			
 			// One step to the right
-            w0 += A12;
-            w1 += A20;
-            w2 += A01;
+			w0 += A12;
+			w1 += A20;
+			w2 += A01;
 		}
 		
 		// One row step
-        w0_row += B12;
-        w1_row += B20;
-        w2_row += B01;
+		w0_row += B12;
+		w1_row += B20;
+		w2_row += B01;
 	}
 }
 
