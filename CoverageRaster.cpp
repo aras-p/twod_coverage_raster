@@ -31,7 +31,7 @@ static inline T max3(T a, T b, T c)
 static void PutPixel (int x, int y, int width, int height, unsigned char* image)
 {
 	//image[y * width + x] = 0xFF;
-	image[y * width + x] += 53;
+	image[y * width + x] += 8;
 }
 
 static void RasterizeTri(
